@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="3" passed="3">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Suite" duration-ms="11688" started-at="2021-08-16T06:54:54Z" finished-at="2021-08-16T06:55:06Z">
+    <groups>
+    </groups>
+    <test name="HomePage" duration-ms="6461" started-at="2021-08-16T06:54:54Z" finished-at="2021-08-16T06:55:00Z">
+      <class name="Academy.HomePage">
+        <test-method status="PASS" signature="driverInitialize()[pri:0, instance:Academy.HomePage@7f2cfe3f]" name="driverInitialize" is-config="true" duration-ms="2430" started-at="2021-08-16T12:24:54Z" finished-at="2021-08-16T12:24:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- driverInitialize -->
+        <test-method status="PASS" signature="basePageNaviagtion()[pri:0, instance:Academy.HomePage@7f2cfe3f]" name="basePageNaviagtion" duration-ms="3728" started-at="2021-08-16T12:24:56Z" finished-at="2021-08-16T12:25:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- basePageNaviagtion -->
+      </class> <!-- Academy.HomePage -->
+    </test> <!-- HomePage -->
+    <test name="SignUp" duration-ms="11687" started-at="2021-08-16T06:54:54Z" finished-at="2021-08-16T06:55:06Z">
+      <class name="Academy.HomePage">
+        <test-method status="PASS" signature="driverInitialize()[pri:0, instance:Academy.HomePage@6c7a164b]" name="driverInitialize" is-config="true" duration-ms="2360" started-at="2021-08-16T12:24:54Z" finished-at="2021-08-16T12:24:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- driverInitialize -->
+        <test-method status="PASS" signature="basePageNaviagtion()[pri:0, instance:Academy.HomePage@6c7a164b]" name="basePageNaviagtion" duration-ms="3670" started-at="2021-08-16T12:24:56Z" finished-at="2021-08-16T12:25:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- basePageNaviagtion -->
+      </class> <!-- Academy.HomePage -->
+      <class name="Academy.SignUpPage">
+        <test-method status="PASS" signature="signUp(java.lang.String)[pri:0, instance:Academy.SignUpPage@4c2bb6e0]" name="signUp" duration-ms="5046" started-at="2021-08-16T12:25:00Z" data-provider="getData" finished-at="2021-08-16T12:25:05Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Kshitij]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- signUp -->
+      </class> <!-- Academy.SignUpPage -->
+    </test> <!-- SignUp -->
+  </suite> <!-- Suite -->
+</testng-results>

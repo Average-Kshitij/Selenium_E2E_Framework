@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Suite]" parallel="tests">
+  <test name="HomePage(failed)" parallel="tests">
+    <classes>
+      <class name="Academy.HomePage">
+        <methods>
+          <include name="driverInitialize"/>
+          <include name="driverInitialize"/>
+          <include name="basePageNaviagtion"/>
+        </methods>
+      </class> <!-- Academy.HomePage -->
+    </classes>
+  </test> <!-- HomePage(failed) -->
+  <test name="SignUp(failed)" parallel="tests">
+    <classes>
+      <class name="Academy.SignUpPage">
+        <methods>
+          <include name="signUp" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- Academy.SignUpPage -->
+      <class name="Academy.HomePage">
+        <methods>
+          <include name="driverInitialize"/>
+          <include name="driverInitialize"/>
+          <include name="basePageNaviagtion"/>
+        </methods>
+      </class> <!-- Academy.HomePage -->
+    </classes>
+  </test> <!-- SignUp(failed) -->
+</suite> <!-- Failed suite [Suite] -->
