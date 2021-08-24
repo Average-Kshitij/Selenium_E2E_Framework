@@ -2,11 +2,7 @@ package resources;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.Calendar;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -14,15 +10,14 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 
 
 public class base  {
@@ -42,6 +37,7 @@ public class base  {
 	{
 		
 		 	
+		
 		FileInputStream fils=new FileInputStream("C:\\Users\\MY PC\\eclipse-workspace\\E2EProject\\src\\test\\java\\resources\\data.properties");
 		prop.load(fils);
 		
