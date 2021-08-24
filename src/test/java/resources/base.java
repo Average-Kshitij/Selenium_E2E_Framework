@@ -9,10 +9,12 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -101,5 +103,21 @@ public class base  {
 		return destFile;
 	}
 	
+	
+	public void searchProduct (String prodName )
+	{
+		try {
+			if(!(prodName==null))
+			{
+				if(!(prodName.isEmpty()) || !(prodName.equalsIgnoreCase(" ")))
+				{
+					tdriver.get().findElement(By.xpath("")).sendKeys(prodName);
+				}
+			}
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+	}
 	
 }
