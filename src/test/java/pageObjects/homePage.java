@@ -3,6 +3,7 @@ package pageObjects;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -37,24 +38,31 @@ public class homePage extends base{
 	
 
 	@FindBy(xpath="//button[@class='_2KpZ6l _2doB4z']")
-	WebElement xButton;
+	WebElement we_xButton;
 	
 	@FindBy(xpath="//img[@title='Flipkart']")
-	WebElement xPageTitle;
+	WebElement we_xPageTitle;
+	
+	@FindBy(xpath="//div[@class='_2QfC02']/button[text()='✕']")
+	WebElement we_closeXButton;
+	
 	
 	public void closeHomeWindow()
 	{
 		
+		log.debug("Clicking the 'X' button after landing on homepage"+" Webelement xButton : "+ we_xButton);
 		
-		log.debug("Clicking the 'X' button after landing on homepage"+" Webelement xButton : "+xButton.toString());
-		
-		xButton.click();
+		we_xButton.click();
 		
 	}
 	
 	public WebElement getxPageTitle()
 	{
-		return xPageTitle;
+		return we_xPageTitle;
+	}
+
+	public WebElement getCloseButton() {
+		return we_closeXButton;
 	}
 
 }

@@ -1,23 +1,17 @@
 package Academy;
 
-import java.io.File;
-import java.io.FileInputStream;
+
 import java.io.IOException;
 
-import org.apache.commons.io.FileUtils;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
-
-import resources.DriverFactory;
 import resources.ExtentReporterNG;
 import resources.base;
 

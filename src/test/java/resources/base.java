@@ -3,6 +3,10 @@ package resources;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -11,7 +15,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,6 +23,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class base  {
@@ -28,6 +32,8 @@ public class base  {
 	 
 	 public static ThreadLocal<WebDriver> tdriver = new ThreadLocal<WebDriver>();
 	 public static ThreadLocal<ChromeOptions> ctOptions = new ThreadLocal<ChromeOptions>();
+	 
+	 
 	 
 	 static ChromeOptions chOptions;
 	 
@@ -119,5 +125,55 @@ public class base  {
 			e.printStackTrace();
 		}
 	}
+	
+	public boolean elementIsPresent (WebElement X)
+	{
+		WebDriverWait wait = new WebDriverWait(tdriver.get(), 4);
+		
+		boolean popUp=false;
+		
+		try
+		{
+	//		wait.until(ExpectedConditions.visibilityOf(X));
+			popUp=X.isDisplayed();	
+		}
+		catch(Exception e)
+		{
+			
+			e.printStackTrace();
+		}
+		
+		return popUp;
+		
+	}
+	
+	public ResultSet connectTodatabase(String query)
+	{
+		ResultSet output = null;
+		
+		String ip="localhost", port ="3306";
+		try
+		{
+		
+		DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+		
+		Connection con = DriverManager.getConnection("jdbc:mysql//"+ip+":"+port+"/kshtest", "root", "root");
+		
+		Statement st =con.createStatement();
+		
+		output = st.executeQuery(query);
+		
+		con.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return output;
+		
+		
+	}
+	
 	
 }
