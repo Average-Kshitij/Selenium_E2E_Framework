@@ -1,46 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="3" passed="3">
+<testng-results skipped="0" failed="0" total="0" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="11777" started-at="2021-09-02T17:10:54Z" finished-at="2021-09-02T17:11:06Z">
+  <suite name="Suite" duration-ms="0" started-at="2022-01-08T20:18:55Z" finished-at="2022-01-08T20:18:55Z">
     <groups>
+      <group name="cucumber">
+        <method signature="AbstractTestNGCucumberTests.feature(cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:cucumberOptions.TestRunner@45efd90f]" name="feature" class="cucumber.api.testng.AbstractTestNGCucumberTests"/>
+      </group> <!-- cucumber -->
     </groups>
-    <test name="HomePage" duration-ms="6579" started-at="2021-09-02T17:10:54Z" finished-at="2021-09-02T17:11:00Z">
-      <class name="Academy.HomePage">
-        <test-method status="PASS" signature="driverInitialize()[pri:0, instance:Academy.HomePage@413d1baf]" name="driverInitialize" is-config="true" duration-ms="2368" started-at="2021-09-02T22:40:54Z" finished-at="2021-09-02T22:40:56Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- driverInitialize -->
-        <test-method status="PASS" signature="basePageNaviagtion()[pri:0, instance:Academy.HomePage@413d1baf]" name="basePageNaviagtion" duration-ms="3904" started-at="2021-09-02T22:40:56Z" finished-at="2021-09-02T22:41:00Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- basePageNaviagtion -->
-      </class> <!-- Academy.HomePage -->
-    </test> <!-- HomePage -->
-    <test name="SignUp" duration-ms="11774" started-at="2021-09-02T17:10:54Z" finished-at="2021-09-02T17:11:06Z">
-      <class name="Academy.HomePage">
-        <test-method status="PASS" signature="driverInitialize()[pri:0, instance:Academy.HomePage@496bc455]" name="driverInitialize" is-config="true" duration-ms="2665" started-at="2021-09-02T22:40:54Z" finished-at="2021-09-02T22:40:56Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- driverInitialize -->
-        <test-method status="PASS" signature="basePageNaviagtion()[pri:0, instance:Academy.HomePage@496bc455]" name="basePageNaviagtion" duration-ms="3388" started-at="2021-09-02T22:40:56Z" finished-at="2021-09-02T22:41:00Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- basePageNaviagtion -->
-      </class> <!-- Academy.HomePage -->
-      <class name="Academy.SignUpPage">
-        <test-method status="PASS" signature="signUp(java.lang.String)[pri:0, instance:Academy.SignUpPage@59402b8f]" name="signUp" duration-ms="5058" started-at="2021-09-02T22:41:00Z" data-provider="getData" finished-at="2021-09-02T22:41:05Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[Kshitij]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- signUp -->
-      </class> <!-- Academy.SignUpPage -->
-    </test> <!-- SignUp -->
   </suite> <!-- Suite -->
 </testng-results>

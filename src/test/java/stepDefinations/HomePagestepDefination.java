@@ -67,9 +67,9 @@ public class HomePagestepDefination extends base{
     	
     	asset.assertAll();
     	
-    	tdriver.get().close();
-    	
-    	log.info("Diver instance closed : " + tdriver.get());
+//    	tdriver.get().close();
+//    	
+//    	log.info("Diver instance closed : " + tdriver.get());
        
     }
 
