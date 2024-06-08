@@ -30,10 +30,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 
 public class base  {
@@ -53,36 +56,34 @@ public class base  {
 	 
 	public WebDriver initialzedriver() throws IOException
 	{
+		String projectPath = System.getProperty("user.dir");
 		
-		File f = new File("C:\\Users\\MY PC\\Desktop\\Covid19 related ST associate data_Kshitij.xlsx");
+		File f = new File(projectPath+"/Covid19 related ST associate data_Kshitij.xlsx");
 		
 		FileInputStream fs = new FileInputStream(f);
 		
 		XSSFWorkbook wb =  new XSSFWorkbook(fs);
-		
-		
+			
 		XSSFSheet sh ;
 		
-		
-		String projectPath = System.getProperty("user.dir");
-		
-		FileInputStream fils=new FileInputStream("C:\\Users\\MY PC\\eclipse-workspace\\E2EProject\\src\\test\\java\\resources\\data.properties");
+		FileInputStream fils=new FileInputStream(projectPath+"/data.properties");
 		prop.load(fils);
 		
-		//String browserName = System.getProperty("browser");
 		String browserName = "chrome";
 		
 		System.out.println(browserName);
 		if(browserName.contains("chrome"))
 		{
-			System.setProperty("webdriver.chrome.driver", projectPath+"/Drivers/chromedriver.exe");
+			//System.setProperty("webdriver.chrome.driver", projectPath+"/Drivers/chromedriver.exe");
 			chOptions = new ChromeOptions();
 			ctOptions.set(chOptions);
 			if(browserName.contains("chrome"))
 			{
 				ctOptions.get().addArguments("headless"); 
 			}
-			driver = new ChromeDriver(ctOptions.get());
+			//driver = new ChromeDriver(ctOptions.get());
+			driver =  WebDriverManager.chromedriver().capabilities(chOptions).create();
+			
 			//DriverFactory.getDriverFactoryInstance().setDriverInstance(driver);
 			tdriver.set(driver);
 			
@@ -93,19 +94,21 @@ public class base  {
 		
 		else if(browserName.contains("firefox"))
 		{
-			System.setProperty("webdriver.gecko.driver", projectPath+"/Drivers/geckodriver.exe");
+			//System.setProperty("webdriver.gecko.driver", projectPath+"/Drivers/geckodriver.exe");
 			FirefoxOptions fxOptions = new FirefoxOptions();
 			if(browserName.contains("headless"))
 			{
 				fxOptions.addArguments("headless");
 			}
-			driver = new FirefoxDriver(fxOptions);
+			//driver = new FirefoxDriver(fxOptions);
+			driver = WebDriverManager.firefoxdriver().capabilities(fxOptions).create();
 			tdriver.set(driver);
 		}	
 		else if(browserName.contains("edge"))
 		{
-			System.setProperty("webdriver.edge.driver", projectPath+"/Drivers/msedgedriver.exe");
-			driver = new EdgeDriver();
+			EdgeOptions edgeOptions = new EdgeOptions();
+			//driver = new EdgeDriver();
+			driver = WebDriverManager.edgedriver().create();
 			tdriver.set(driver);
 		}			
 		
