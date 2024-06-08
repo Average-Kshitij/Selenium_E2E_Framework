@@ -2,28 +2,41 @@ package resources;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.junit.rules.ExpectedException;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 
 public class base  {
@@ -43,47 +56,59 @@ public class base  {
 	 
 	public WebDriver initialzedriver() throws IOException
 	{
+		String projectPath = System.getProperty("user.dir");
 		
-		 	
+		File f = new File(projectPath+"/Covid19 related ST associate data_Kshitij.xlsx");
 		
-		FileInputStream fils=new FileInputStream("C:\\Users\\MY PC\\eclipse-workspace\\E2EProject\\src\\test\\java\\resources\\data.properties");
+		FileInputStream fs = new FileInputStream(f);
+		
+		XSSFWorkbook wb =  new XSSFWorkbook(fs);
+			
+		XSSFSheet sh ;
+		
+		FileInputStream fils=new FileInputStream(projectPath+"/data.properties");
 		prop.load(fils);
 		
-		//String browserName = System.getProperty("browser");
 		String browserName = "chrome";
 		
 		System.out.println(browserName);
 		if(browserName.contains("chrome"))
 		{
-			System.setProperty("webdriver.chrome.driver", "D:\\My Files\\Selenium pre-reqs\\chromedriver.exe");
+			//System.setProperty("webdriver.chrome.driver", projectPath+"/Drivers/chromedriver.exe");
 			chOptions = new ChromeOptions();
 			ctOptions.set(chOptions);
-			if(browserName.contains("headless"))
+			if(browserName.contains("chrome"))
 			{
 				ctOptions.get().addArguments("headless"); 
 			}
-			driver = new ChromeDriver(ctOptions.get());
+			//driver = new ChromeDriver(ctOptions.get());
+			driver =  WebDriverManager.chromedriver().capabilities(chOptions).create();
+			
 			//DriverFactory.getDriverFactoryInstance().setDriverInstance(driver);
 			tdriver.set(driver);
 			
 			log.info("Chome driver in base Class : " + tdriver.get());
+			
+			
 		}
 		
 		else if(browserName.contains("firefox"))
 		{
-			System.setProperty("webdriver.gecko.driver", "D:\\My Files\\Selenium pre-reqs\\geckodriver.exe");
+			//System.setProperty("webdriver.gecko.driver", projectPath+"/Drivers/geckodriver.exe");
 			FirefoxOptions fxOptions = new FirefoxOptions();
 			if(browserName.contains("headless"))
 			{
 				fxOptions.addArguments("headless");
 			}
-			driver = new FirefoxDriver(fxOptions);
+			//driver = new FirefoxDriver(fxOptions);
+			driver = WebDriverManager.firefoxdriver().capabilities(fxOptions).create();
 			tdriver.set(driver);
 		}	
 		else if(browserName.contains("edge"))
 		{
-			System.setProperty("webdriver.edge.driver", "D:\\My Files\\Selenium pre-reqs\\msedgedriver.exe");
-			driver = new EdgeDriver();
+			EdgeOptions edgeOptions = new EdgeOptions();
+			//driver = new EdgeDriver();
+			driver = WebDriverManager.edgedriver().create();
 			tdriver.set(driver);
 		}			
 		
@@ -110,14 +135,18 @@ public class base  {
 	}
 	
 	
-	public void searchProduct (String prodName )
+	public void searchProduct (String prodName , WebElement element )
 	{
+//		driver.findElement(new WebElementbEl)
+		WebDriverWait wait = new WebDriverWait(driver, 3);
 		try {
 			if(!(prodName==null))
 			{
 				if(!(prodName.isEmpty()) || !(prodName.equalsIgnoreCase(" ")))
 				{
-					tdriver.get().findElement(By.xpath("")).sendKeys(prodName);
+					waitSync(element);
+					
+					element.sendKeys(prodName);
 				}
 			}
 		} catch (Exception e) {
@@ -135,7 +164,8 @@ public class base  {
 		try
 		{
 	//		wait.until(ExpectedConditions.visibilityOf(X));
-			popUp=X.isDisplayed();	
+			popUp=X.isDisplayed();
+			
 		}
 		catch(Exception e)
 		{
@@ -146,6 +176,21 @@ public class base  {
 		return popUp;
 		
 	}
+	
+	
+	public void enterText(WebElement textBox , String text)
+	{
+		WebDriverWait wait = new WebDriverWait(driver, 3);
+		try {
+			if (!(text == null)) {
+				
+				
+			}
+		} catch (Exception e) {
+		}
+	}
+	
+	
 	
 	public ResultSet connectTodatabase(String query)
 	{
@@ -173,6 +218,30 @@ public class base  {
 		return output;
 		
 		
+	}
+	
+	public void waitSync(WebElement element) 
+	{
+		WebDriverWait wait = new WebDriverWait(driver , 3);
+		try
+		{
+		log.info("In wait sync method");	
+					
+		wait.until(ExpectedConditions.visibilityOf(element));
+		
+		wait.until(ExpectedConditions.elementToBeClickable(element));
+		
+		log.info("Exit wait sync method without exception");
+		
+		}
+		catch(Exception e)
+		{
+			log.error("Exception in waitSync method");
+			
+			e.printStackTrace();
+		}
+		
+		driver.findElement(By.className("kshitij"));
 	}
 	
 	

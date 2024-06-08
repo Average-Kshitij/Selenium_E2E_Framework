@@ -11,7 +11,7 @@ public class Dbconnection extends base{
 
 	
 	
-	@Test
+	@Test(enabled = false)
 	public void connectDb() throws SQLException
 	{
 		

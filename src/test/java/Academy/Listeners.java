@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.NoSuchSessionException;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -90,6 +91,7 @@ public class Listeners extends base implements ITestListener {
 	@Override
 	public void onFinish(ITestContext context) {
 		// TODO Auto-generated method stub
+		try {
 		log.info("In Listerner finish method");
 		
 		log.debug("Closing the driver instance");
@@ -100,6 +102,17 @@ public class Listeners extends base implements ITestListener {
 		log.debug("Driver instance closed : "+ tdriver.get());
 		
 		extent.flush();
+		}
+		catch(NoSuchSessionException nss)
+		{
+			log.error(Listeners.class.getName()+":Session is already closed");
+			
+			nss.printStackTrace();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 }

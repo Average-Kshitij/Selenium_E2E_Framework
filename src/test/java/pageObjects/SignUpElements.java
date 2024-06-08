@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.asserts.SoftAssert;
 
 import resources.DriverFactory;
 import resources.base;
@@ -14,6 +15,8 @@ public class SignUpElements extends base {
 //public WebDriver driver;
 	
 	Logger log = LogManager.getLogger(SignUpElements.class);
+	 
+	
 	
 	public SignUpElements()
 	{	
