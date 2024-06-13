@@ -2,36 +2,25 @@ package resources;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.List;
+import java.time.Duration;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.junit.rules.ExpectedException;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -41,78 +30,72 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class base  {
 
-	 public static WebDriver driver;
-	 
-	 public static ThreadLocal<WebDriver> tdriver = new ThreadLocal<WebDriver>();
-	 public static ThreadLocal<ChromeOptions> ctOptions = new ThreadLocal<ChromeOptions>();
-	 
-	 
-	 
-	 static ChromeOptions chOptions;
-	 
-	protected Properties prop=new Properties();
-	
+	public static WebDriver driver;
+	public static ThreadLocal<WebDriver> tdriver = new ThreadLocal<WebDriver>();
+	public static ThreadLocal<ChromeOptions> ctOptions = new ThreadLocal<ChromeOptions>();
+	private String browserName;
+	private boolean isHeadless = false;
+	static ChromeOptions chOptions;
+	protected Properties prop = new Properties();
 	Logger log = LogManager.getLogger(base.class);
-	 
+	protected int explWaitTime =  Integer.parseInt(prop.getProperty("explicitWait"));
+	
+	@SuppressWarnings({ "unused","resource"})
 	public WebDriver initialzedriver() throws IOException
 	{
 		String projectPath = System.getProperty("user.dir");
-		
+				
 		File f = new File(projectPath+"/Covid19 related ST associate data_Kshitij.xlsx");
 		
 		FileInputStream fs = new FileInputStream(f);
 		
-		XSSFWorkbook wb =  new XSSFWorkbook(fs);
-			
-		XSSFSheet sh ;
-		
-		FileInputStream fils=new FileInputStream(projectPath+"/data.properties");
+		FileInputStream fils=new FileInputStream(projectPath+"/resource/data.properties");
 		prop.load(fils);
 		
-		String browserName = "chrome";
+		browserName = "chrome";
 		
 		System.out.println(browserName);
-		if(browserName.contains("chrome"))
+		
+		switch(browserName.toUpperCase())
 		{
-			//System.setProperty("webdriver.chrome.driver", projectPath+"/Drivers/chromedriver.exe");
+		case "CHROME":
+			
 			chOptions = new ChromeOptions();
 			ctOptions.set(chOptions);
-			if(browserName.contains("chrome"))
-			{
-				ctOptions.get().addArguments("headless"); 
+			if (isHeadless) {
+				ctOptions.get().addArguments("headless");
 			}
-			//driver = new ChromeDriver(ctOptions.get());
-			driver =  WebDriverManager.chromedriver().capabilities(chOptions).create();
 			
-			//DriverFactory.getDriverFactoryInstance().setDriverInstance(driver);
+			driver = WebDriverManager.chromedriver().capabilities(chOptions).create();
+
 			tdriver.set(driver);
-			
+
 			log.info("Chome driver in base Class : " + tdriver.get());
+			break;
+
+		case "FIREFOX":
 			
-			
-		}
-		
-		else if(browserName.contains("firefox"))
-		{
-			//System.setProperty("webdriver.gecko.driver", projectPath+"/Drivers/geckodriver.exe");
 			FirefoxOptions fxOptions = new FirefoxOptions();
-			if(browserName.contains("headless"))
-			{
+			if (browserName.contains("headless")) {
 				fxOptions.addArguments("headless");
 			}
-			//driver = new FirefoxDriver(fxOptions);
+			
 			driver = WebDriverManager.firefoxdriver().capabilities(fxOptions).create();
 			tdriver.set(driver);
-		}	
-		else if(browserName.contains("edge"))
-		{
+			break;
+
+		case "EDGE":
 			EdgeOptions edgeOptions = new EdgeOptions();
-			//driver = new EdgeDriver();
+			
 			driver = WebDriverManager.edgedriver().create();
 			tdriver.set(driver);
-		}			
+			break;
+
+		default:
+			break;
+		}
 		
-		tdriver.get().manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
+		tdriver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(6));
 		tdriver.get().manage().window().maximize();
 		return tdriver.get();
 		
@@ -137,14 +120,12 @@ public class base  {
 	
 	public void searchProduct (String prodName , WebElement element )
 	{
-//		driver.findElement(new WebElementbEl)
-		WebDriverWait wait = new WebDriverWait(driver, 3);
 		try {
 			if(!(prodName==null))
 			{
 				if(!(prodName.isEmpty()) || !(prodName.equalsIgnoreCase(" ")))
 				{
-					waitSync(element);
+					waitSync(element , 3);
 					
 					element.sendKeys(prodName);
 				}
@@ -157,7 +138,7 @@ public class base  {
 	
 	public boolean elementIsPresent (WebElement X)
 	{
-		WebDriverWait wait = new WebDriverWait(tdriver.get(), 4);
+		WebDriverWait wait = new WebDriverWait(tdriver.get(), Duration.ofSeconds(explWaitTime));
 		
 		boolean popUp=false;
 		
@@ -180,7 +161,7 @@ public class base  {
 	
 	public void enterText(WebElement textBox , String text)
 	{
-		WebDriverWait wait = new WebDriverWait(driver, 3);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(explWaitTime));
 		try {
 			if (!(text == null)) {
 				
@@ -220,9 +201,9 @@ public class base  {
 		
 	}
 	
-	public void waitSync(WebElement element) 
+	public void waitSync(WebElement element , int waitTimeInSec) 
 	{
-		WebDriverWait wait = new WebDriverWait(driver , 3);
+		WebDriverWait wait = new WebDriverWait(driver , Duration.ofSeconds(waitTimeInSec));
 		try
 		{
 		log.info("In wait sync method");	
