@@ -2,3 +2,5 @@ Logs/
 test-output/
 target/
 reports/
+/.classpath
+/.settings
