@@ -4,3 +4,4 @@ target/
 reports/
 /.classpath
 /.settings
+.project
