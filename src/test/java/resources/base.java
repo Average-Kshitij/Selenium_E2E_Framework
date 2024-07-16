@@ -22,8 +22,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.aventstack.extentreports.ExtentTest;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -38,7 +41,9 @@ public class base  {
 	static ChromeOptions chOptions;
 	protected Properties prop = new Properties();
 	Logger log = LogManager.getLogger(base.class);
-	protected int explWaitTime =  Integer.parseInt(prop.getProperty("explicitWait"));
+	public ExtentTest test=null;
+	int explWaitTime;
+
 	
 	@SuppressWarnings({ "unused","resource"})
 	public WebDriver initialzedriver() throws IOException
@@ -52,6 +57,7 @@ public class base  {
 		FileInputStream fils=new FileInputStream(projectPath+"/resource/data.properties");
 		prop.load(fils);
 		
+		int explWaitTime = Integer.parseInt(prop.getProperty("explicitWait"));
 		browserName = "chrome";
 		
 		System.out.println(browserName);
@@ -222,8 +228,80 @@ public class base  {
 			e.printStackTrace();
 		}
 		
-		driver.findElement(By.className("kshitij"));
 	}
 	
+	public WebElement findElementToTheRightOf(WebElement relativeElement,String basedOn ,String value)
+	{
+		switch (basedOn)
+		{
+		case "ID":		
+		return driver.findElement(RelativeLocator.with(By.id(value)).toRightOf(relativeElement));
+	
+		case "XPATH":
+			return driver.findElement(RelativeLocator.with(By.xpath(value)).toRightOf(relativeElement));
+		
+			
+		case "TAGNAME":
+			return driver.findElement(RelativeLocator.with(By.tagName(value)).toRightOf(relativeElement));
+		
+			
+		case "NAME":
+			return driver.findElement(RelativeLocator.with(By.name(value)).toRightOf(relativeElement));
+	
+			
+		case "LINKTEXT":
+			return driver.findElement(RelativeLocator.with(By.linkText(value)).toRightOf(relativeElement));
+	
+			
+		case "PARTIALLINKTEST":
+			return driver.findElement(RelativeLocator.with(By.name(value)).toRightOf(relativeElement));
+
+			
+		default:
+			return driver.findElement(RelativeLocator.with(By.name(value)).toRightOf(relativeElement));
+		}
+		
+	}
+	
+	public WebElement findElementToTheLeftOf(WebElement relativeElement,String basedOn ,String value)
+	{
+		
+		
+		try {
+			switch (basedOn) {
+			case "ID":
+				return driver.findElement(RelativeLocator.with(By.id(value)).toLeftOf(relativeElement));
+				
+			case "XPATH":
+				return driver.findElement(RelativeLocator.with(By.xpath(value)).toLeftOf(relativeElement));
+				
+				
+			case "TAGNAME":
+				return driver.findElement(RelativeLocator.with(By.tagName(value)).toLeftOf(relativeElement));
+				
+				
+			case "NAME":
+				return driver.findElement(RelativeLocator.with(By.name(value)).toLeftOf(relativeElement));
+			
+				
+			case "LINKTEXT":
+				return driver.findElement(RelativeLocator.with(By.name(value)).toLeftOf(relativeElement));
+			
+				
+			case "PARTIALLINKTEST":
+				return driver.findElement(RelativeLocator.with(By.name(value)).toLeftOf(relativeElement));
+				
+				
+			default:
+				return driver.findElement(RelativeLocator.with(By.name(value)).toLeftOf(relativeElement));
+
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return driver.findElement(RelativeLocator.with(By.name(value)).toLeftOf(relativeElement));
+		
+	}
 	
 }

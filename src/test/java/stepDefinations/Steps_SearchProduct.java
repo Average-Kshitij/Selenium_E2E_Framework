@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.testng.asserts.SoftAssert;
 
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.*;
+import io.cucumber.junit.Cucumber;
 import pageObjects.SearchObjects;
 import resources.base;
 
@@ -18,6 +18,8 @@ public class Steps_SearchProduct extends base {
 	
 	@When("^Search box is persent on the page\\.$")
 	public void search_box_is_persent_on_the_page() throws Throwable {
+		
+		so =  new SearchObjects();
 	    
 		elementIsPresent(so.getWe_searchBox());
 	}
@@ -37,7 +39,7 @@ public class Steps_SearchProduct extends base {
 	    
 	}
 
-	@Then("^Click on seach button\\.$")
+	@Then("^Click on search button\\.$")
 	public void click_on_seach_button() throws Throwable {
 	    
 		so.getWe_searchButton().click();

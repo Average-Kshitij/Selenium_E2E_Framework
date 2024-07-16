@@ -5,13 +5,11 @@ import org.apache.logging.log4j.Logger;
 import org.junit.runner.RunWith;
 import org.testng.asserts.SoftAssert;
 import Academy.HomePage;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import cucumber.api.junit.Cucumber;
+import io.cucumber.java.en.*;
 import pageObjects.homePage;
 import resources.base;
+import io.cucumber.junit.Cucumber;
+
 
 
 @RunWith(Cucumber.class)

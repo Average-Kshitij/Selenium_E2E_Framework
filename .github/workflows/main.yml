@@ -1,8 +1,40 @@
-name : E2E pipelien
-'on' : push
+name : E2E pipeline
+on : 
+  push:
+    branches: [main]
+
+  pull_request: 
+    types: [opened,synchronize,reopened]
+    branches: [main]
+
+  workflow_dispatch:
+    inputs: 
+      tag-names: 
+        description: "Tag names e.g. @tagname"
+        default: ""
+        required: true
+        type: string
+
+env:
+  tag-names : ${{github.event.inputs.tag-names}}
+
 jobs:
-  my_job:
-    runs-on: ubuntu-latest
+  run-tests:
+    runs-on: windows-latest
+
     steps:
-    - name: my-step
-      run: echo "Hello world"
+      - name: Checkout project
+        uses: actions/checkout@v4 
+
+      - name: Setup java version
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+
+      - name: Run cucumber test using maven
+        run: mvn clean test -Dcucumber.options="src/test/java/features --tags ${{env.tag-names}}"
+        env:
+          tag-names: "@search"
+
+
+        

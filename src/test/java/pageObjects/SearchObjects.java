@@ -27,17 +27,24 @@ public class SearchObjects extends base{
 	
 	
 
-	@FindBy(xpath = "https://www.flipkart.com/") private WebElement we_searchBox;
-	@FindBy(xpath ="//button[@class='L0Z3Pu' and @type='submit']") private WebElement we_searchButton;
+	@FindBy(name ="q") private WebElement we_searchBox;
+	@FindBy(xpath ="//*[@name='q']/parent::div/preceding-sibling::button") private WebElement we_searchButton;
+	//@FindBy(xpath ="//button[@class='L0Z3Pu' and @type='submit']") private WebElement we_searchButton;
 	@FindBy(xpath ="//div[@class='_4rR01T']") private WebElement we_productNames;
+	@FindBy(xpath ="//img[@title=\"Flipkart\"]") private WebElement we_flipkartImage;
 	
 	
 	
+	public WebElement getWe_flipkartImage() {
+		return we_flipkartImage;
+	}
+
 	public WebElement getWe_searchBox() {
 		return we_searchBox;
 	}
 
 	public WebElement getWe_searchButton() {
+		
 		return we_searchButton;
 	}
 	public WebElement getWe_productNames() {

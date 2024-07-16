@@ -18,7 +18,7 @@ import resources.base;
 
 public class Listeners extends base implements ITestListener {
 	
-	ExtentTest test=null;
+	
 	Logger log = LogManager.getLogger(Listeners.class);
 	ExtentReports extent = ExtentReporterNG.getReportObject();
 	ThreadLocal<ExtentTest> extentTestReport = new ThreadLocal<ExtentTest>();
@@ -26,8 +26,10 @@ public class Listeners extends base implements ITestListener {
 	@Override
 	public void onTestStart(ITestResult result) {
 		// TODO Auto-generated method stub
+		log.info("Inside Test on start listener");
 		test = extent.createTest(result.getMethod().getMethodName());
 		extentTestReport.set(test);
+		
 	}
 
 	@Override
@@ -55,6 +57,7 @@ public class Listeners extends base implements ITestListener {
 		// TODO Auto-generated method stub
 		String testName= result.getMethod().getMethodName();
 		
+		test.info(result.getThrowable().getMessage());
 		extentTestReport.get().fail(result.getThrowable());
 		
 		try {
@@ -90,29 +93,26 @@ public class Listeners extends base implements ITestListener {
 
 	@Override
 	public void onFinish(ITestContext context) {
-		// TODO Auto-generated method stub
+		
 		try {
-		log.info("In Listerner finish method");
-		
-		log.debug("Closing the driver instance");
-		
-		//DriverFactory.getDriverFactoryInstance().getDriverInstance().close();
-		tdriver.get().close();
-		
-		log.debug("Driver instance closed : "+ tdriver.get());
-		
-		extent.flush();
-		}
-		catch(NoSuchSessionException nss)
-		{
-			log.error(Listeners.class.getName()+":Session is already closed");
-			
+			log.info("In Listerner finish method");
+
+			log.debug("Closing the driver instance");
+
+			// DriverFactory.getDriverFactoryInstance().getDriverInstance().close();
+			tdriver.get().close();
+
+			log.debug("Driver instance closed : " + tdriver.get());
+
+			extent.flush();
+		} catch (NoSuchSessionException nss) {
+			log.error(Listeners.class.getName() + ":Session is already closed");
+
 			nss.printStackTrace();
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 
 }
