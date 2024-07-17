@@ -71,10 +71,13 @@ public class base  {
 			if (isHeadless) {
 				ctOptions.get().addArguments("headless");
 			}
-			
+			System.out.println("Before driver initialisation"); //for debug
 			driver = WebDriverManager.chromedriver().capabilities(chOptions).create();
+			System.out.println("After driver initialisation"); //for debug
 
+			System.out.println("Before setting driver in thread");
 			tdriver.set(driver);
+			System.out.println("After setting driver in thread");
 
 			log.info("Chome driver in base Class : " + tdriver.get());
 			break;
