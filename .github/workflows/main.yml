@@ -33,7 +33,7 @@ jobs:
           java-version: '17'
 
       - name: Run cucumber test using maven
-        run: mvn clean test -Dcucumber.options="src/test/java/features --tags ${{env.tag-names}}"
+        run: mvn -B clean test "-Dcucumber.options=src/test/java/features --tags ${{env.tag-names}}"
         env:
           tag-names: "@search"
 
