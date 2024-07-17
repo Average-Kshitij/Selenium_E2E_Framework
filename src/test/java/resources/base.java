@@ -72,7 +72,13 @@ public class base  {
 				ctOptions.get().addArguments("headless");
 			}
 			System.out.println("Before driver initialisation"); //for debug
+			try{
 			driver = WebDriverManager.chromedriver().capabilities(chOptions).create();
+			}
+			catch(Exception e){
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+			}
 			System.out.println("After driver initialisation"); //for debug
 
 			System.out.println("Before setting driver in thread");
