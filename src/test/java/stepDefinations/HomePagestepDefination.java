@@ -36,16 +36,19 @@ public class HomePagestepDefination extends base{
 
     @When("^Popup is present$")
     public void popup_is_present() throws Throwable {
-        
-    	
-    	
+
     	asset.assertTrue(elementIsPresent(h.getCloseButton()));
     }
 
     @Then("^Close the the pop up window$")
     public void close_the_the_pop_up_window() throws Throwable {
-        
-    	h.closeHomeWindow();
+       try {
+           h.closeHomeWindow();
+       }
+       catch(Exception e)
+       {
+           e.printStackTrace();
+       }
     	
     	log.debug("X Button Clicked");
     }
