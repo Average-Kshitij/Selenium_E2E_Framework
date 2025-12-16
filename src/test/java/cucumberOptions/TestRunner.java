@@ -11,7 +11,7 @@ import io.cucumber.junit.Cucumber;
 @CucumberOptions (
 		features= "src/test/java/features",
 		glue="stepDefinations",
-		tags ="@search"
+		tags ="${cucumber.filter.tags}"
 		)
 
 public class TestRunner extends AbstractTestNGCucumberTests{

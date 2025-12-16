@@ -1,6 +1,6 @@
 Feature: Search Product feature for flipkart
 
-@search
+@search @smoke
 Scenario Outline: Enter a product name and click on search button.
     Given Initialise the driver
     And Navigate to the <URL>
